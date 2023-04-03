@@ -1,0 +1,13 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %} Empty Cart {% endblock title %}
+{% block section_9 %}
+<div class="container my-5">
+ <div class="row">
+  <h1 class="text-center">You have no Item in your cart...</h1>
+     <div class="text-center">
+         <img src="{% static 'app/images/emptycart.png' %}" alt="" class="img-fluid img-thumbnail w-25">
+     </div>
+ </div>
+</div>
+  {% endblock section_9 %}

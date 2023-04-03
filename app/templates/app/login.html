@@ -1,0 +1,51 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+ <!--Owl Carousel CSS-->
+    <link rel="stylesheet" href="{% static 'app/css/owl.carousel.min.css' %}">
+
+    <!--FontAwesome CSS-->
+    <link rel="stylesheet" href="{% static 'app/css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'app/css/argon.css' %}">
+
+
+    <!--Custom CSS-->
+    <link rel="stylesheet" href="{% static 'app/css/style.css' %}">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>GBM | Login</title>
+</head>
+<body>
+<div class="container">
+ <div class="row my-3">
+  <div class="col-sm-6 offset-sm-3">
+      <h3 style="font-size:30px; text-align:left; font-weight: 800;"><a href="/">Home</a><a href="{% url 'signup' %}" style="padding-left: 325px">SignUp</a></h3>
+   <h3 style="font-size:30px; text-align:center; font-weight: 800;">Login</h3>
+   <hr>
+   <form action="" method="post" novalidate class="shadow p-5">
+    {% csrf_token %}
+       {% for fm in form %}
+       <div class="form-group">
+           {{fm.label_tag}} {{fm}} <small class="text-danger">{{fm.errors|striptags}}</small>
+           <br>
+       {% endfor %}
+       <small><a href="{% url 'password_reset' %}">Forgot Password ?</a></small>
+       <br>
+       <input type="submit" class="btn btn-primary mt-4" value="Login">
+           <br>
+        <div class="text-center text-primary fw-bold"><small>New to GBM?<a href="{% url 'signup' %}"> Create an Account now!</a></small></div>
+           {% if form.non_field_errors %}
+            {% for error in form.non_field_errors %}
+                <p class="alert alert-danger my-3">{{error}}</p>
+            {% endfor %}
+           {% endif %}
+   </form>
+  </div>
+ </div>
+</div>
+
+</body>
+</html>

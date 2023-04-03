@@ -1,0 +1,593 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %} Cart {% endblock title %}
+{% block section_9 %}
+
+
+
+
+
+
+<div class="container my-5">
+ <div class="row">
+  <h1 class="text-center mb-5">Shopping Cart</h1>
+  <div class="col-sm-8">
+  <div class="card">
+   <div class="card-body">
+    <h3>Cart</h3>
+    {% for cart in carts %}
+    <hr>
+    <div class="row">
+     <div class="col-sm-3 text-center align-self-center"><img src="{{cart.product.product_image.url}}" alt="" srcset="" class="img-fluid img-thumbnail shadow-sm" height="150" width="150"> </div>
+     <div class="col-sm-9">
+      <div>
+       <h5>{{cart.product.title}}</h5>
+       <p class="mb-2 text-muted small">{{cart.product.description}}</p>
+       <div class="my-3">
+        <label for="quantity">Quantity:</label>
+        <a class="minus-cart btn" pid="{{cart.product.id}}"><i class="fas fa-minus-square fa-lg"></i></a>
+          <span id="quantity">{{cart.quantity}}</span>
+        <a class="plus-cart btn"  pid="{{cart.product.id}}"><i class="fas fa-plus-square fa-lg"></i></a>
+       </div>
+       <div class="d-flex justify-content-between">
+        <a href="#" class="remove-cart btn btn-sm btn-secondary mb-3 mr-3" pid="{{cart.product.id}}">Remove item </a>
+        <p class="mb-0"><span><strong>Rs. {{cart.product.selling_price}}</strong></span></p>
+       </div>
+      </div>
+     </div>
+    </div>
+
+    {% endfor %}
+
+    <div class="row my-5">
+
+     </div>
+    </div>
+   </div>
+   </div>
+  </div>
+
+  <div class="col-sm-4">
+   <div class="card">
+    <div class="card-body">
+      <h3>The Total Amount of</h3>
+      <ul class="list-group">
+       <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">Amount<span>Rs. <span id="amount">{{amount}}</span></span></li>
+       <li class="list-group-item d-flex justify-content-between align-items-center px-0">Shipping<span>Rs. 70.00</span></li>
+       <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+        <div>
+           <strong>Total</strong> <small>(including VAT)</small>
+         </div>
+         <span><strong>Rs. <strong id="totalamount">{{totalamount}}</strong></strong></span>
+       </li>
+      </ul>
+      <div class="d-grid"><a href="{% url 'checkout' %}" class="btn btn-primary">Place Order</a></div>
+    </div>
+   </div>
+  </div>
+
+ </div>
+</div>
+<div class="container">
+ <div class="row">
+  <div class="col-sm-8">
+   <div class="card">
+    <div class="card-body">
+      <h5 class="mb-4">We accept</h5>
+      <img src="{% static 'app/images/payment.png' %}" alt="" class="img-fluid">
+    </div>
+  </div>
+  </div>
+ </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<section class="h-100 h-custom" style="background-color: #d2c9ff; height: 100vh !important;">-->
+<!--    <div class="container py-5 h-100">-->
+<!--      <div class="row d-flex justify-content-center align-items-center h-100">-->
+<!--        <div class="col-12">-->
+<!--          <div class="card card-registration card-registration-2" style="border-radius: 15px;">-->
+<!--            <div class="card-body p-0">-->
+<!--              <div class="row g-0">-->
+<!--                <div class="col-lg-8">-->
+<!--                  <div class="p-5">-->
+<!--                    <div class="d-flex justify-content-between align-items-center mb-5">-->
+<!--                      <h1 class="fw-bold mb-0 text-black">Shopping Cart</h1>-->
+<!--                      <h6 class="mb-0 text-muted">3 items</h6>-->
+<!--                    </div>-->
+<!--                    <hr class="my-4">-->
+<!--  -->
+<!--                    <div class="row mb-4 d-flex justify-content-between align-items-center">-->
+<!--                      <div class="col-md-2 col-lg-2 col-xl-2">-->
+<!--                        <img-->
+<!--                          src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img5.webp"-->
+<!--                          class="img-fluid rounded-3" alt="Cotton T-shirt">-->
+<!--                      </div>-->
+<!--                      <div class="col-md-3 col-lg-3 col-xl-3">-->
+<!--                        <h6 class="text-muted">Shirt</h6>-->
+<!--                        <h6 class="text-black mb-0">Cotton T-shirt</h6>-->
+<!--                      </div>-->
+<!--                      <div class="col-md-3 col-lg-3 col-xl-2 d-flex">-->
+<!--                        <button class="btn btn-link px-2"-->
+<!--                          onclick="this.parentNode.querySelector('input[type=number]').stepDown()">-->
+<!--                          <i class="fas fa-minus"></i>-->
+<!--                        </button>-->
+<!--  -->
+<!--                        <input id="form1" min="0" name="quantity" value="1" type="number"-->
+<!--                          class="form-control form-control-sm" />-->
+<!--&lt;!&ndash;  &ndash;&gt;-->
+<!--&lt;!&ndash;                        <button class="btn btn-link px-2"&ndash;&gt;-->
+<!--&lt;!&ndash;                          onclick="this.parentNode.querySelector('input[type=number]').stepUp()">&ndash;&gt;-->
+<!--&lt;!&ndash;                          <i class="fas fa-plus"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </button>&ndash;&gt;-->
+<!--&lt;!&ndash;                      </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                      <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <h6 class="mb-0">€ 44.00</h6>&ndash;&gt;-->
+<!--&lt;!&ndash;                      </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                      <div class="col-md-1 col-lg-1 col-xl-1 text-end">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <a href="#!" class="text-muted"><i class="fas fa-times"></i></a>&ndash;&gt;-->
+<!--&lt;!&ndash;                      </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;  &ndash;&gt;-->
+<!--&lt;!&ndash;                    <hr class="my-4">&ndash;&gt;-->
+<!--&lt;!&ndash;  &ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class="row mb-4 d-flex justify-content-between align-items-center">&ndash;&gt;-->
+<!--&lt;!&ndash;                      <div class="col-md-2 col-lg-2 col-xl-2">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <img&ndash;&gt;-->
+<!--&lt;!&ndash;                          src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img6.webp"&ndash;&gt;-->
+<!--&lt;!&ndash;                          class="img-fluid rounded-3" alt="Cotton T-shirt">&ndash;&gt;-->
+<!--&lt;!&ndash;                      </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                      <div class="col-md-3 col-lg-3 col-xl-3">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <h6 class="text-muted">Shirt</h6>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <h6 class="text-black mb-0">Cotton T-shirt</h6>&ndash;&gt;-->
+<!--&lt;!&ndash;                      </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                      <div class="col-md-3 col-lg-3 col-xl-2 d-flex">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <button class="btn btn-link px-2"&ndash;&gt;-->
+<!--&lt;!&ndash;                          onclick="this.parentNode.querySelector('input[type=number]').stepDown()">&ndash;&gt;-->
+<!--&lt;!&ndash;                          <i class="fas fa-minus"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </button>&ndash;&gt;-->
+<!--&lt;!&ndash;  &ndash;&gt;-->
+<!--&lt;!&ndash;                        <input id="form1" min="0" name="quantity" value="1" type="number"&ndash;&gt;-->
+<!--&lt;!&ndash;                          class="form-control form-control-sm" />&ndash;&gt;-->
+<!--&lt;!&ndash;  &ndash;&gt;-->
+<!--&lt;!&ndash;                        <button class="btn btn-link px-2"&ndash;&gt;-->
+<!--&lt;!&ndash;                          onclick="this.parentNode.querySelector('input[type=number]').stepUp()">&ndash;&gt;-->
+<!--&lt;!&ndash;                          <i class="fas fa-plus"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </button>&ndash;&gt;-->
+<!--&lt;!&ndash;                      </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                      <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <h6 class="mb-0">€ 44.00</h6>&ndash;&gt;-->
+<!--&lt;!&ndash;                      </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                      <div class="col-md-1 col-lg-1 col-xl-1 text-end">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <a href="#!" class="text-muted"><i class="fas fa-times"></i></a>&ndash;&gt;-->
+<!--&lt;!&ndash;                      </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;  &ndash;&gt;-->
+<!--&lt;!&ndash;                    <hr class="my-4">&ndash;&gt;-->
+<!--&lt;!&ndash;  &ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class="row mb-4 d-flex justify-content-between align-items-center">&ndash;&gt;-->
+<!--&lt;!&ndash;                      <div class="col-md-2 col-lg-2 col-xl-2">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <img&ndash;&gt;-->
+<!--&lt;!&ndash;                          src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img7.webp"&ndash;&gt;-->
+<!--&lt;!&ndash;                          class="img-fluid rounded-3" alt="Cotton T-shirt">&ndash;&gt;-->
+<!--&lt;!&ndash;                      </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                      <div class="col-md-3 col-lg-3 col-xl-3">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <h6 class="text-muted">Shirt</h6>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <h6 class="text-black mb-0">Cotton T-shirt</h6>&ndash;&gt;-->
+<!--&lt;!&ndash;                      </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                      <div class="col-md-3 col-lg-3 col-xl-2 d-flex">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <button class="btn btn-link px-2"&ndash;&gt;-->
+<!--&lt;!&ndash;                          onclick="this.parentNode.querySelector('input[type=number]').stepDown()">&ndash;&gt;-->
+<!--&lt;!&ndash;                          <i class="fas fa-minus"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </button>&ndash;&gt;-->
+<!--&lt;!&ndash;  &ndash;&gt;-->
+<!--&lt;!&ndash;                        <input id="form1" min="0" name="quantity" value="1" type="number"&ndash;&gt;-->
+<!--&lt;!&ndash;                          class="form-control form-control-sm" />&ndash;&gt;-->
+<!--&lt;!&ndash;  &ndash;&gt;-->
+<!--&lt;!&ndash;                        <button class="btn btn-link px-2"&ndash;&gt;-->
+<!--&lt;!&ndash;                          onclick="this.parentNode.querySelector('input[type=number]').stepUp()">&ndash;&gt;-->
+<!--&lt;!&ndash;                          <i class="fas fa-plus"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </button>&ndash;&gt;-->
+<!--&lt;!&ndash;                      </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                      <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <h6 class="mb-0">€ 44.00</h6>&ndash;&gt;-->
+<!--&lt;!&ndash;                      </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                      <div class="col-md-1 col-lg-1 col-xl-1 text-end">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <a href="#!" class="text-muted"><i class="fas fa-times"></i></a>&ndash;&gt;-->
+<!--&lt;!&ndash;                      </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;  &ndash;&gt;-->
+<!--&lt;!&ndash;                    <hr class="my-4">&ndash;&gt;-->
+<!--&lt;!&ndash;  &ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class="pt-5">&ndash;&gt;-->
+<!--&lt;!&ndash;                      <h6 class="mb-0"><a href="#!" class="text-body"><i&ndash;&gt;-->
+<!--&lt;!&ndash;                            class="fas fa-long-arrow-alt-left me-2"></i>Back to shop</a></h6>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                  </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="col-lg-4 bg-grey">&ndash;&gt;-->
+<!--&lt;!&ndash;                  <div class="p-5">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <h3 class="fw-bold mb-5 mt-2 pt-1">Summary</h3>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <hr class="my-4">&ndash;&gt;-->
+<!--&lt;!&ndash;  &ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class="d-flex justify-content-between mb-4">&ndash;&gt;-->
+<!--&lt;!&ndash;                      <h5 class="text-uppercase">items 3</h5>&ndash;&gt;-->
+<!--&lt;!&ndash;                      <h5>€ 132.00</h5>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;  &ndash;&gt;-->
+<!--&lt;!&ndash;                    <h5 class="text-uppercase mb-3">Shipping</h5>&ndash;&gt;-->
+<!--&lt;!&ndash;  &ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class="mb-4 pb-2">&ndash;&gt;-->
+<!--&lt;!&ndash;                      <select class="select">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <option value="1">Standard-Delivery- €5.00</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <option value="2">Two</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <option value="3">Three</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <option value="4">Four</option>&ndash;&gt;-->
+<!--&lt;!&ndash;                      </select>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;  &ndash;&gt;-->
+<!--&lt;!&ndash;                    <h5 class="text-uppercase mb-3">Give code</h5>&ndash;&gt;-->
+<!--&lt;!&ndash;  &ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class="mb-5">&ndash;&gt;-->
+<!--&lt;!&ndash;                      <div class="form-outline">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <input type="text" id="form3Examplea2" class="form-control form-control-lg" />&ndash;&gt;-->
+<!--&lt;!&ndash;                        <label class="form-label" for="form3Examplea2">Enter your code</label>&ndash;&gt;-->
+<!--&lt;!&ndash;                      </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;  &ndash;&gt;-->
+<!--&lt;!&ndash;                    <hr class="my-4">&ndash;&gt;-->
+<!--&lt;!&ndash;  &ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class="d-flex justify-content-between mb-5">&ndash;&gt;-->
+<!--&lt;!&ndash;                      <h5 class="text-uppercase">Total price</h5>&ndash;&gt;-->
+<!--&lt;!&ndash;                      <h5>€ 137.00</h5>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;  &ndash;&gt;-->
+<!--&lt;!&ndash;                    <button type="button" class="btn btn-dark btn-block btn-lg"&ndash;&gt;-->
+<!--&lt;!&ndash;                      data-mdb-ripple-color="dark">Register</button>&ndash;&gt;-->
+<!--&lt;!&ndash;  &ndash;&gt;-->
+<!--&lt;!&ndash;                  </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;              </div>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;          </div>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;      </div>&ndash;&gt;-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;  </section>&ndash;&gt;-->
+<!--<section class="u-clearfix u-block-ce7c-98" custom-posts-hash="[T,[T,T],[[[I,T],[I,T],[I,T]],[],[],[]]]" data-section-properties="{&quot;margin&quot;:&quot;both&quot;,&quot;stretch&quot;:true}" data-id="ce7c" data-style="shopping-cart-1" id="sec-467a" style="">-->
+<!--    <div class="u-clearfix u-sheet u-block-ce7c-2" style="min-height: 818px;">-->
+
+<!--    <div class="u-cart u-expanded-width u-block-ce7c-6" style="margin-top: 60px; margin-bottom: 40px; min-height: 718px;" data-block="9" data-block-type="Cart">-->
+<!--            <div class="u-cart-products-table u-table u-table-responsive u-block-ce7c-7" style="" data-block="10"><div class="hidden u-border-1 u-border-grey-dark-1 u-first-col-div u-block-ce7c-91" style=""></div><div class="hidden u-border-1 u-border-grey-dark-1 u-table-header-style-div u-block-ce7c-92" style=""></div><div class="hidden u-border-1 u-border-grey-dark-1 u-table-footer-style-div u-block-ce7c-93" style=""></div><div class="hidden u-border-1 u-border-grey-dark-1 u-table-body-style-div u-block-ce7c-94" style=""></div>-->
+<!--                <table class="u-table-entity u-block-ce7c-12" style="">-->
+<!--                    <colgroup>-->
+<!--                        <col width="65%">-->
+<!--                        <col width="15%">-->
+<!--                        <col width="15%">-->
+<!--                        <col width="15%">-->
+<!--                    </colgroup>-->
+<!--                    <thead class="u-table-header u-block-ce7c-13" style="">-->
+<!--                    <tr style="height: 46px;">-->
+<!--                        <th class="u-border-1 u-border-grey-dark-1 u-table-cell u-block-ce7c-14" style="" data-block="11" data-block-type="TableCell">Product </th>-->
+<!--                        <th class="u-border-1 u-border-grey-dark-1 u-table-cell u-block-ce7c-15" style="" data-block="12" data-block-type="TableCell">Price </th>-->
+<!--                        <th class="u-border-1 u-border-grey-dark-1 u-table-cell u-block-ce7c-16" style="" data-block="13">Quantity </th>-->
+<!--                        <th class="u-border-1 u-border-grey-dark-1 u-table-cell u-block-ce7c-17" style="" data-block="14" data-block-type="TableCell">Subtotal </th>-->
+<!--                    </tr>-->
+<!--                    </thead>-->
+<!--                    <tbody class="u-table-body u-block-ce7c-18" style="">-->
+<!--                    <tr style="height: 120px;">-->
+<!--                        <td class="u-border-1 u-border-grey-dark-1 u-table-cell u-block-ce7c-19" style="" data-block="15" data-block-type="TableCell"><span class="u-cart-remove-item u-icon u-block-ce7c-20" style="font-size: 1.5em; margin-right: 10px" data-block="16"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" xml:space="preserve" class="u-svg-content" viewBox="0 0 52 52" x="0px" y="0px" style="width: 1em; height: 1em;"><g><path d="M26,0C11.664,0,0,11.663,0,26s11.664,26,26,26s26-11.663,26-26S40.336,0,26,0z M26,50C12.767,50,2,39.233,2,26-->
+<!--		S12.767,2,26,2s24,10.767,24,24S39.233,50,26,50z"></path><path d="M35.707,16.293c-0.391-0.391-1.023-0.391-1.414,0L26,24.586l-8.293-8.293c-0.391-0.391-1.023-0.391-1.414,0-->
+<!--		s-0.391,1.023,0,1.414L24.586,26l-8.293,8.293c-0.391,0.391-0.391,1.023,0,1.414C16.488,35.902,16.744,36,17,36-->
+<!--		s0.512-0.098,0.707-0.293L26,27.414l8.293,8.293C34.488,35.902,34.744,36,35,36s0.512-0.098,0.707-0.293-->
+<!--		c0.391-0.391,0.391-1.023,0-1.414L27.414,26l8.293-8.293C36.098,17.316,36.098,16.684,35.707,16.293z"></path>-->
+<!--</g></svg><img></span>-->
+<!--                            <img class="u-cart-product-image u-image u-image-default u-product-control u-block-ce7c-21" src="{% static 'app/images/w10.jpg' %}" style="" data-block="17" data-block-type="ProductImage">-->
+<!--                            <h2 class="u-cart-product-title u-product-control u-text u-block-ce7c-22" style="font-size: 1rem" data-block="18">-->
+<!--                                <a class="u-product-title-link" href="#">Giraffe Top</a>-->
+<!--                            </h2>-->
+<!--                        </td>-->
+<!--                        <td class="u-border-1 u-border-grey-dark-1 u-table-cell u-block-ce7c-23" style="" data-block="19" data-block-type="TableCell">-->
+<!--                            <div class="u-cart-product-price u-product-control u-product-price u-block-ce7c-24" style="" data-block="20">-->
+<!--                                <div class="u-price-wrapper">-->
+<!--                                    <div class="u-hide-price u-old-price"></div>-->
+<!--                                    <div class="u-price">799.00</div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </td>-->
+<!--                        <td class="u-border-1 u-border-grey-dark-1 u-table-cell u-block-ce7c-25" style="" data-block="21">-->
+<!--                            <div class="u-cart-product-quantity u-product-control u-product-quantity u-block-ce7c-26" style="width: 100px" data-block="22">-->
+<!--                                <div class="u-hidden u-quantity-label"> Quantity </div>-->
+<!--                                <div class="u-border-1 u-border-grey-25 u-quantity-input">-->
+<!--                                    <a class="disabled minus u-button-style u-hidden u-quantity-button">-->
+<!--                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="m 4 8 h 8" fill="none" stroke="currentColor" stroke-width="1" fill-rule="evenodd"></path></svg>-->
+<!--                                    </a>-->
+<!--                                    <input class="u-border-grey-30 u-input u-block-ce7c-27" type="text" value="1" pattern="[0-9]+" style="">-->
+<!--                                    <a class="plus u-button-style u-hidden u-quantity-button">-->
+<!--                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="m 4 8 h 8 M 8 4 v 8" fill="none" stroke="currentColor" stroke-width="1" fill-rule="evenodd"></path></svg>-->
+<!--                                    </a>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </td>-->
+<!--                        <td class="u-border-1 u-border-grey-dark-1 u-table-cell u-block-ce7c-28" style="" data-block="23" data-block-type="TableCell">-->
+<!--                            <div class="u-cart-product-subtotal u-product-control u-product-price u-block-ce7c-29" style="" data-block="24">-->
+<!--                                <div class="u-price-wrapper">-->
+<!--                                    <div class="u-hide-price u-old-price"></div>-->
+<!--                                    <div class="u-price" style="font-weight: 700;">799</div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </td>-->
+<!--                    </tr>-->
+<!--                    <tr style="height: 120px;">-->
+<!--                        <td class="u-border-1 u-border-grey-dark-1 u-table-cell u-block-ce7c-30" style="" data-block="25" data-block-type="TableCell"><span class="u-cart-remove-item u-icon u-block-ce7c-31" style="font-size: 1.5em; margin-right: 10px" data-block="26"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" xml:space="preserve" class="u-svg-content" viewBox="0 0 52 52" x="0px" y="0px" style="width: 1em; height: 1em;"><g><path d="M26,0C11.664,0,0,11.663,0,26s11.664,26,26,26s26-11.663,26-26S40.336,0,26,0z M26,50C12.767,50,2,39.233,2,26-->
+<!--		S12.767,2,26,2s24,10.767,24,24S39.233,50,26,50z"></path><path d="M35.707,16.293c-0.391-0.391-1.023-0.391-1.414,0L26,24.586l-8.293-8.293c-0.391-0.391-1.023-0.391-1.414,0-->
+<!--		s-0.391,1.023,0,1.414L24.586,26l-8.293,8.293c-0.391,0.391-0.391,1.023,0,1.414C16.488,35.902,16.744,36,17,36-->
+<!--		s0.512-0.098,0.707-0.293L26,27.414l8.293,8.293C34.488,35.902,34.744,36,35,36s0.512-0.098,0.707-0.293-->
+<!--		c0.391-0.391,0.391-1.023,0-1.414L27.414,26l8.293-8.293C36.098,17.316,36.098,16.684,35.707,16.293z"></path>-->
+<!--</g></svg><img></span>-->
+<!--                            <img class="u-cart-product-image u-image u-image-default u-product-control u-block-ce7c-32" src="{% static 'app/images/c3-2.jpg' %}" style="" data-block="27">-->
+<!--                            <h2 class="u-cart-product-title u-product-control u-text u-block-ce7c-33" style="font-size: 1rem" data-block="28" data-block-type="ProductTitle">-->
+<!--                                <a class="u-product-title-link" href="#">Lunatic Yoga Pants for women</a>-->
+<!--                            </h2>-->
+<!--                        </td>-->
+<!--                        <td class="u-border-1 u-border-grey-dark-1 u-table-cell u-block-ce7c-34" style="" data-block="29" data-block-type="TableCell">-->
+<!--                            <div class="u-cart-product-price u-product-control u-product-price u-block-ce7c-35" style="" data-block="30">-->
+<!--                                <div class="u-price-wrapper">-->
+<!--                                    <div class="u-hide-price u-old-price"></div>-->
+<!--                                    <div class="u-price">699.00</div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </td>-->
+<!--                        <td class="u-border-1 u-border-grey-dark-1 u-table-cell u-block-ce7c-36" style="" data-block="31" data-block-type="TableCell">-->
+<!--                            <div class="u-cart-product-quantity u-product-control u-product-quantity u-block-ce7c-37" style="width: 100px" data-block="32" data-block-type="ProductQuantity">-->
+<!--                                <div class="u-hidden u-quantity-label"> Quantity </div>-->
+<!--                                <div class="u-border-1 u-border-grey-25 u-quantity-input">-->
+<!--                                    <a class="disabled minus u-button-style u-hidden u-quantity-button">-->
+<!--                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="m 4 8 h 8" fill="none" stroke="currentColor" stroke-width="1" fill-rule="evenodd"></path></svg>-->
+<!--                                    </a>-->
+<!--                                    <input class="u-border-grey-30 u-input u-block-ce7c-38" type="text" value="1" pattern="[0-9]+" style="">-->
+<!--                                    <a class="plus u-button-style u-hidden u-quantity-button">-->
+<!--                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="m 4 8 h 8 M 8 4 v 8" fill="none" stroke="currentColor" stroke-width="1" fill-rule="evenodd"></path></svg>-->
+<!--                                    </a>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </td>-->
+<!--                        <td class="u-border-1 u-border-grey-dark-1 u-table-cell u-block-ce7c-39" style="" data-block="33" data-block-type="TableCell">-->
+<!--                            <div class="u-cart-product-subtotal u-product-control u-product-price u-block-ce7c-40" style="" data-block="34">-->
+<!--                                <div class="u-price-wrapper">-->
+<!--                                    <div class="u-hide-price u-old-price"></div>-->
+<!--                                    <div class="u-price" style="font-weight: 700;">699.00</div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </td>-->
+<!--                    </tr>-->
+<!--                    <tr style="height: 120px;">-->
+<!--                        <td class="u-border-1 u-border-grey-dark-1 u-table-cell u-block-ce7c-41" style="" data-block="35" data-block-type="TableCell"><span class="u-cart-remove-item u-icon u-block-ce7c-42" style="font-size: 1.5em; margin-right: 10px" data-block="36"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" xml:space="preserve" class="u-svg-content" viewBox="0 0 52 52" x="0px" y="0px" style="width: 1em; height: 1em;"><g><path d="M26,0C11.664,0,0,11.663,0,26s11.664,26,26,26s26-11.663,26-26S40.336,0,26,0z M26,50C12.767,50,2,39.233,2,26-->
+<!--		S12.767,2,26,2s24,10.767,24,24S39.233,50,26,50z"></path><path d="M35.707,16.293c-0.391-0.391-1.023-0.391-1.414,0L26,24.586l-8.293-8.293c-0.391-0.391-1.023-0.391-1.414,0-->
+<!--		s-0.391,1.023,0,1.414L24.586,26l-8.293,8.293c-0.391,0.391-0.391,1.023,0,1.414C16.488,35.902,16.744,36,17,36-->
+<!--		s0.512-0.098,0.707-0.293L26,27.414l8.293,8.293C34.488,35.902,34.744,36,35,36s0.512-0.098,0.707-0.293-->
+<!--		c0.391-0.391,0.391-1.023,0-1.414L27.414,26l8.293-8.293C36.098,17.316,36.098,16.684,35.707,16.293z"></path>-->
+<!--</g></svg><img></span>-->
+<!--                            <img class="u-cart-product-image u-image u-image-default u-product-control u-block-ce7c-43" src="{% static 'app/images/c2-3.jpg' %}" style="" data-block="37">-->
+<!--                            <h2 class="u-cart-product-title u-product-control u-text u-block-ce7c-44" style="font-size: 1rem" data-block="38">-->
+<!--                                <a class="u-product-title-link" href="#">Blue NYC Hoodie</a>-->
+<!--                            </h2>-->
+<!--                        </td>-->
+<!--                        <td class="u-border-1 u-border-grey-dark-1 u-table-cell u-block-ce7c-45" style="" data-block="39">-->
+<!--                            <div class="u-cart-product-price u-product-control u-product-price u-block-ce7c-46" style="" data-block="40">-->
+<!--                                <div class="u-price-wrapper">-->
+<!--                                    <div class="u-hide-price u-old-price"></div>-->
+<!--                                    <div class="u-price">599.00</div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </td>-->
+<!--                        <td class="u-border-1 u-border-grey-dark-1 u-table-cell u-block-ce7c-47" style="" data-block="41" data-block-type="TableCell">-->
+<!--                            <div class="u-cart-product-quantity u-product-control u-product-quantity u-block-ce7c-48" style="width: 100px" data-block="42">-->
+<!--                                <div class="u-hidden u-quantity-label"> Quantity </div>-->
+<!--                                <div class="u-border-1 u-border-grey-25 u-quantity-input">-->
+<!--                                    <a class="disabled minus u-button-style u-hidden u-quantity-button">-->
+<!--                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="m 4 8 h 8" fill="none" stroke="currentColor" stroke-width="1" fill-rule="evenodd"></path></svg>-->
+<!--                                    </a>-->
+<!--                                    <input class="u-border-grey-30 u-input u-block-ce7c-49" type="text" value="1" pattern="[0-9]+" style="">-->
+<!--                                    <a class="plus u-button-style u-hidden u-quantity-button">-->
+<!--                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="m 4 8 h 8 M 8 4 v 8" fill="none" stroke="currentColor" stroke-width="1" fill-rule="evenodd"></path></svg>-->
+<!--                                    </a>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </td>-->
+<!--                        <td class="u-border-1 u-border-grey-dark-1 u-table-cell u-block-ce7c-50" style="" data-block="43" data-block-type="TableCell">-->
+<!--                            <div class="u-cart-product-subtotal u-product-control u-product-price u-block-ce7c-51" style="" data-block="44">-->
+<!--                                <div class="u-price-wrapper">-->
+<!--                                    <div class="u-hide-price u-old-price"></div>-->
+<!--                                    <div class="u-price" style="font-weight: 700;">599.00</div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </td>-->
+<!--                    </tr>-->
+<!--                    </tbody>-->
+<!--                    <tfoot class="hidden u-table-footer u-block-ce7c-52" style="">-->
+<!--                    <tr class="hidden u-block-ce7c-53" style="">-->
+<!--                        <td class="u-border-1 u-border-grey-dark-1 u-table-cell u-block-ce7c-54" style="" data-block="45"></td>-->
+<!--                        <td class="u-border-1 u-border-grey-dark-1 u-table-cell u-block-ce7c-55" style="" data-block="46"></td>-->
+<!--                        <td class="u-border-1 u-border-grey-dark-1 u-table-cell u-block-ce7c-56" style="" data-block="47"></td>-->
+<!--                        <td class="u-border-1 u-border-grey-dark-1 u-table-cell u-block-ce7c-57" style="" data-block="48"></td>-->
+<!--                    </tr>-->
+<!--                    </tfoot>-->
+<!--                </table>-->
+<!--            </div>-->
+<!--&lt;!&ndash;            <div class="u-cart-button-container">&ndash;&gt;-->
+<!--&lt;!&ndash;                <a href="#" class="u-active-none u-btn u-button-style u-cart-continue-shopping u-hover-none u-none u-text-body-color u-block-ce7c-58" style="padding-top: 10px; padding-right: 14px; padding-bottom: 10px; padding-left: 14px" data-block="49"><span class="u-icon u-block-ce7c-59" style="" data-block="50"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" xml:space="preserve" class="u-svg-content" viewBox="0 0 443.52 443.52" x="0px" y="0px" style="width: 1em; height: 1em;"><g><g><path d="M143.492,221.863L336.226,29.129c6.663-6.664,6.663-17.468,0-24.132c-6.665-6.662-17.468-6.662-24.132,0l-204.8,204.8    c-6.662,6.664-6.662,17.468,0,24.132l204.8,204.8c6.78,6.548,17.584,6.36,24.132-0.42c6.387-6.614,6.387-17.099,0-23.712    L143.492,221.863z"></path>&ndash;&gt;-->
+<!--&lt;!&ndash;</g>&ndash;&gt;-->
+<!--&lt;!&ndash;</g></svg><img></span>&nbsp;Continue Shopping&ndash;&gt;-->
+<!--&lt;!&ndash;                </a>&ndash;&gt;-->
+<!--&lt;!&ndash;                </a href="#" class="u-btn u-button-style u-cart-update u-grey-5 u-block-ce7c-60" style="" data-block="51" data-block-type="Button">Update Cart</a>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--            <div class="u-cart-blocks-container">-->
+<!--                <div class="u-cart-block u-indent-30">-->
+<!--                    <div class="u-cart-block-container u-clearfix">-->
+<!--                        <h5 class="u-cart-block-header u-text u-block-ce7c-61" style="" data-block="52" data-block-type="Text">Promotion Code</h5>-->
+<!--                        <div class="u-cart-block-content u-text u-block-ce7c-62" style="" data-block="53" data-block-type="Text">-->
+<!--                            <div class="u-cart-form u-form u-block-ce7c-63" style="" data-block="54">-->
+<!--                                <form action="#" method="POST" class="u-clearfix u-form-horizontal u-form-spacing-10 u-inner-form" source="custom" name="form">-->
+<!--                                    <div class="u-form-group ui-draggable ui-draggable-handle u-block-ce7c-64" style="" data-block="55" data-block-type="FormField">-->
+<!--                                        <label for="name-5861" class="u-form-control-hidden u-label u-block-ce7c-65" style="">Coupon code</label>-->
+<!--                                        <input type="text" placeholder="Coupon code" id="name-5861" name="coupon" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-block-ce7c-66" required="" style="">-->
+<!--                                    </div>-->
+<!--                                    <div class="u-align-left u-form-group u-form-submit u-block-ce7c-67" style="" data-block="56">-->
+<!--                                        <a href="#" class="u-btn u-btn-submit u-button-style u-block-ce7c-68" style="" data-block="57" data-block-type="FormChild,FormButton">Apply Coupon</a>-->
+<!--                                        <input type="submit" value="submit" class="u-form-control-hidden">-->
+<!--                                    </div>-->
+<!--                                    <div class="u-form-send-message u-form-send-success">Thank you! Your message has been sent.</div>-->
+<!--                                    <div class="u-form-send-error u-form-send-message">Unable to send your message. Please fix errors then try again.</div>-->
+<!--                                    <input type="hidden" value="" name="recaptchaResponse">-->
+<!--                                </form>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="u-cart-block u-cart-totals-block u-indent-30">-->
+<!--                    <div class="u-cart-block-container u-clearfix">-->
+<!--                        <h5 class="u-cart-block-header u-text u-block-ce7c-69" style="" data-block="58" data-block-type="Text">Cart Totals</h5>-->
+<!--                        <div class="u-align-right u-cart-block-content u-text u-block-ce7c-70" style="" data-block="59" data-block-type="Text">-->
+<!--                            <div class="u-cart-totals-table u-table u-table-responsive u-block-ce7c-71" style="" data-block="60"><div class="hidden u-align-left u-border-1 u-border-grey-dark-1 u-first-col-div u-block-ce7c-90" style="font-weight: 700"></div><div class="hidden u-border-1 u-border-grey-dark-1 u-table-header-style-div u-block-ce7c-95" style=""></div><div class="hidden u-border-1 u-border-grey-dark-1 u-table-footer-style-div u-block-ce7c-96" style=""></div><div class="hidden u-border-1 u-border-grey-dark-1 u-table-body-style-div u-block-ce7c-97" style=""></div>-->
+<!--                                <table class="u-table-entity u-block-ce7c-75" style="">-->
+<!--                                    <colgroup>-->
+<!--                                        <col width="50%">-->
+<!--                                        <col width="50%">-->
+<!--                                    </colgroup>-->
+<!--                                    <thead class="hidden u-table-header u-block-ce7c-76" style="">-->
+<!--                                    <tr class="hidden u-block-ce7c-77" style="">-->
+<!--                                        <th class="u-border-1 u-border-grey-dark-1 u-table-cell u-block-ce7c-78" style="" data-block="61"></th>-->
+<!--                                        <th class="u-border-1 u-border-grey-dark-1 u-table-cell u-block-ce7c-79" style="" data-block="62"></th>-->
+<!--                                    </tr>-->
+<!--                                    </thead>-->
+<!--                                    <tbody class="u-align-right u-table-body u-block-ce7c-80" style="">-->
+<!--                                    <tr style="height: 46px;">-->
+<!--                                        <td class="u-align-left u-border-1 u-border-grey-dark-1 u-first-column u-table-cell u-block-ce7c-81" style="font-weight: 700" data-block="63" data-block-type="TableCell">Subtotal</td>-->
+<!--                                        <td class="u-border-1 u-border-grey-dark-1 u-table-cell u-block-ce7c-82" style="" data-block="64" data-block-type="TableCell">2097.00</td>-->
+<!--                                    </tr>-->
+<!--                                    <tr style="height: 46px;">-->
+<!--                                        <td class="u-align-left u-border-1 u-border-grey-dark-1 u-first-column u-table-cell u-block-ce7c-81" style="font-weight: 700" data-block="63" data-block-type="TableCell">Shipping Cost</td>-->
+<!--                                        <td class="u-border-1 u-border-grey-dark-1 u-table-cell u-block-ce7c-82" style="" data-block="64" data-block-type="TableCell">100.00</td>-->
+<!--                                    </tr>-->
+<!--                                    <tr style="height: 46px;">-->
+<!--                                        <td class="u-align-left u-border-1 u-border-grey-dark-1 u-first-column u-table-cell u-block-ce7c-83" style="font-weight: 700" data-block="65">Total</td>-->
+<!--                                        <td class="u-border-1 u-border-grey-dark-1 u-table-cell u-block-ce7c-84" style="font-weight: 700" data-block="66" data-block-type="TableCell">2197.00</td>-->
+<!--                                    </tr>-->
+
+<!--                                    </tbody>-->
+<!--                                    <tfoot class="hidden u-table-footer u-block-ce7c-85" style="">-->
+<!--                                    <tr class="hidden u-block-ce7c-86" style="">-->
+<!--                                        <td class="u-border-1 u-border-grey-dark-1 u-table-cell u-block-ce7c-87" style="" data-block="67"></td>-->
+<!--                                        <td class="u-border-1 u-border-grey-dark-1 u-table-cell u-block-ce7c-88" style="" data-block="68"></td>-->
+<!--                                    </tr>-->
+<!--                                    </tfoot>-->
+<!--                                </table>-->
+<!--                            </div>-->
+<!--                            <a href="{% url 'checkout'%}" class="u-btn u-button-style u-cart-checkout-btn u-block-ce7c-89" style="margin-top: 20px" data-block="69">Proceed to Checkout</a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div></div>-->
+<!--    <style data-mode="XL" data-visited="true">@media (max-width: 0px) { .u-block-ce7c-2 {min-height: 818px}0-->
+<!--.u-block-ce7c-6 {margin-top: 60px; margin-bottom: 40px; min-height: 718px}-->
+<!--.u-block-ce7c-20 {font-size: 1.5em; margin-right: 10px}-->
+<!--.u-block-ce7c-22 {font-size: 1rem}-->
+<!--.u-block-ce7c-26 {width: 100px}-->
+<!--.u-block-ce7c-31 {font-size: 1.5em; margin-right: 10px}-->
+<!--.u-block-ce7c-33 {font-size: 1rem}-->
+<!--.u-block-ce7c-37 {width: 100px}-->
+<!--.u-block-ce7c-42 {font-size: 1.5em; margin-right: 10px}-->
+<!--.u-block-ce7c-44 {font-size: 1rem}-->
+<!--.u-block-ce7c-48 {width: 100px}-->
+<!--.u-block-ce7c-58 {padding-top: 10px; padding-right: 14px; padding-bottom: 10px; padding-left: 14px}-->
+<!--.u-block-ce7c-90 {font-weight: 700}-->
+<!--.u-block-ce7c-81 {font-weight: 700}-->
+<!--.u-block-ce7c-83 {font-weight: 700}-->
+<!--.u-block-ce7c-84 {font-weight: 700}-->
+<!--.u-block-ce7c-89 {margin-top: 20px} }</style>-->
+<!--    <style data-mode="LG">@media (max-width: 0px) { .u-block-ce7c-2 {min-height: 818px}-->
+<!--.u-block-ce7c-6 {margin-top: 68px; margin-bottom: 40px; min-height: 718px; height: auto}-->
+<!--.u-block-ce7c-20 {font-size: 1.5em; margin-right: 10px}-->
+<!--.u-block-ce7c-22 {font-size: 1rem}-->
+<!--.u-block-ce7c-26 {width: 100px}-->
+<!--.u-block-ce7c-31 {font-size: 1.5em; margin-right: 10px}-->
+<!--.u-block-ce7c-33 {font-size: 1rem}-->
+<!--.u-block-ce7c-37 {width: 100px}-->
+<!--.u-block-ce7c-42 {font-size: 1.5em; margin-right: 10px}-->
+<!--.u-block-ce7c-44 {font-size: 1rem}-->
+<!--.u-block-ce7c-48 {width: 100px}-->
+<!--.u-block-ce7c-58 {padding-top: 10px; padding-right: 14px; padding-bottom: 10px; padding-left: 14px}-->
+<!--.u-block-ce7c-90 {font-weight: 700}-->
+<!--.u-block-ce7c-81 {font-weight: 700}-->
+<!--.u-block-ce7c-83 {font-weight: 700}-->
+<!--.u-block-ce7c-84 {font-weight: 700}-->
+<!--.u-block-ce7c-89 {margin-top: 20px} }</style>-->
+<!--    <style data-mode="MD">@media (max-width: 0px) { .u-block-ce7c-2 {min-height: 818px}-->
+<!--.u-block-ce7c-6 {margin-top: 68px; margin-bottom: 40px; min-height: 718px; height: auto}-->
+<!--.u-block-ce7c-20 {font-size: 1.5em; margin-right: 10px}-->
+<!--.u-block-ce7c-22 {font-size: 1rem}-->
+<!--.u-block-ce7c-26 {width: 100px}-->
+<!--.u-block-ce7c-31 {font-size: 1.5em; margin-right: 10px}-->
+<!--.u-block-ce7c-33 {font-size: 1rem}-->
+<!--.u-block-ce7c-37 {width: 100px}-->
+<!--.u-block-ce7c-42 {font-size: 1.5em; margin-right: 10px}-->
+<!--.u-block-ce7c-44 {font-size: 1rem}-->
+<!--.u-block-ce7c-48 {width: 100px}-->
+<!--.u-block-ce7c-58 {padding-top: 10px; padding-right: 14px; padding-bottom: 10px; padding-left: 14px}-->
+<!--.u-block-ce7c-90 {font-weight: 700}-->
+<!--.u-block-ce7c-81 {font-weight: 700}-->
+<!--.u-block-ce7c-83 {font-weight: 700}-->
+<!--.u-block-ce7c-84 {font-weight: 700}-->
+<!--.u-block-ce7c-89 {margin-top: 20px} }</style>-->
+<!--    <style data-mode="SM">@media (max-width: 0px) { .u-block-ce7c-2 {min-height: 818px}-->
+<!--.u-block-ce7c-6 {margin-top: 66px; margin-bottom: 40px; min-height: 718px; height: auto}-->
+<!--.u-block-ce7c-20 {font-size: 1.5em; margin-right: 10px}-->
+<!--.u-block-ce7c-22 {font-size: 1rem}-->
+<!--.u-block-ce7c-26 {width: 100px}-->
+<!--.u-block-ce7c-31 {font-size: 1.5em; margin-right: 10px}-->
+<!--.u-block-ce7c-33 {font-size: 1rem}-->
+<!--.u-block-ce7c-37 {width: 100px}-->
+<!--.u-block-ce7c-42 {font-size: 1.5em; margin-right: 10px}-->
+<!--.u-block-ce7c-44 {font-size: 1rem}-->
+<!--.u-block-ce7c-48 {width: 100px}-->
+<!--.u-block-ce7c-58 {padding-top: 10px; padding-right: 14px; padding-bottom: 10px; padding-left: 14px}-->
+<!--.u-block-ce7c-90 {font-weight: 700}-->
+<!--.u-block-ce7c-81 {font-weight: 700}-->
+<!--.u-block-ce7c-83 {font-weight: 700}-->
+<!--.u-block-ce7c-84 {font-weight: 700}-->
+<!--.u-block-ce7c-89 {margin-top: 20px} }</style>-->
+<!--    <style data-mode="XS">@media (max-width: 0px) { .u-block-ce7c-2 {min-height: 818px}-->
+<!--.u-block-ce7c-6 {margin-top: 66px; margin-bottom: 40px; min-height: 718px; height: auto}-->
+<!--.u-block-ce7c-20 {font-size: 1.5em; margin-right: 10px}-->
+<!--.u-block-ce7c-22 {font-size: 1rem}-->
+<!--.u-block-ce7c-26 {width: 100px}-->
+<!--.u-block-ce7c-31 {font-size: 1.5em; margin-right: 10px}-->
+<!--.u-block-ce7c-33 {font-size: 1rem}-->
+<!--.u-block-ce7c-37 {width: 100px}-->
+<!--.u-block-ce7c-42 {font-size: 1.5em; margin-right: 10px}-->
+<!--.u-block-ce7c-44 {font-size: 1rem}-->
+<!--.u-block-ce7c-48 {width: 100px}-->
+<!--.u-block-ce7c-58 {padding-top: 10px; padding-right: 14px; padding-bottom: 10px; padding-left: 14px}-->
+<!--.u-block-ce7c-90 {font-weight: 700}-->
+<!--.u-block-ce7c-81 {font-weight: 700}-->
+<!--.u-block-ce7c-83 {font-weight: 700}-->
+<!--.u-block-ce7c-84 {font-weight: 700}-->
+<!--.u-block-ce7c-89 {margin-top: 20px} }</style>-->
+<!--</section>-->
+  {% endblock section_9 %}
